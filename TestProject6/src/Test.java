@@ -2,7 +2,7 @@
 public class Test {
 	// added comment2
 	public static void main(String[] args) {
-			System.out.println("hi3");
+		System.out.println("new change");
 	}
 
 }

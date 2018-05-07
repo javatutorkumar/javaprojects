@@ -1,6 +1,6 @@
 
 public class Test {
-	// added comment
+	// added comment2
 	public static void main(String[] args) {
 			System.out.println("hi");
 	}

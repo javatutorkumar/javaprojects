@@ -11,6 +11,7 @@ public class CourseApiApplicationTests {
 
 	@Test
 	public void contextLoads() {
+		
 	}
 
 }

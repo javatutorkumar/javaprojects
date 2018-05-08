@@ -1,4 +1,4 @@
-package com.mani;
+package com.tutor;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

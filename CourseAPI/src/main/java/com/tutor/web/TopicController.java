@@ -1,49 +1,44 @@
 package com.tutor.web;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.tutor.model.Topic;
 import com.tutor.service.TopicService;
 
-@RestController
-@RequestMapping("/topics")
+@Controller
+@RequestMapping("/topics1")
 public class TopicController {
 
 	@Autowired
 	TopicService topicService;
 	
 	@RequestMapping(method=RequestMethod.GET)
-	public List<Topic> getTopics() {
-		return topicService.getTopics();
+	public String getTopics(Model model) {
+		model.addAttribute("topics", topicService.getTopics());
+		return "topicResults";
 	}
 
 	@RequestMapping(method=RequestMethod.GET, value="/{name}")
-	public Topic getTopic(@PathVariable(name="name") String name) {
-		return topicService.getTopicByName(name);
+	public String getTopic(@PathVariable(name="name") String name, Model model) {
+		Topic topic = topicService.getTopicByName(name);
+		List<Topic> topics = new ArrayList<>();
+		topics.add(topic);
+		model.addAttribute("topics", topics);
+		return "topicResults";
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
-	public List<Topic> addTopic(@RequestBody Topic topic) {
+	public String addTopic(@ModelAttribute Topic topic, Model model) {
 		topicService.addTopic(topic);
-		return topicService.getTopics();
-	}
-	
-	@RequestMapping(method=RequestMethod.PUT, value="/{name}")
-	public List<Topic> updateTopic(@RequestBody Topic topic, @PathVariable(name="name") String name) {
-		topicService.updateTopic(topic);
-		return topicService.getTopics();
-	}
-	
-	@RequestMapping(method=RequestMethod.DELETE, value="/{name}")
-	public List<Topic> deleteTopic(@PathVariable(name="name") String name) {
-		topicService.deleteTopicByName(name);
-		return topicService.getTopics();
+		return getTopics(model);
 	}
 }

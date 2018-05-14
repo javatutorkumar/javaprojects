@@ -1,15 +1,20 @@
 package com.tutor.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class Topic {
+	@Id
 	private Integer id;
 	private String name;
-	private String desc;
+	private String description;
 	
-	public Topic(Integer id, String name, String desc) {
+	public Topic(Integer id, String name, String description) {
 		super();
 		this.id = id;
 		this.name = name;
-		this.desc = desc;
+		this.description = description;
 	}
 	public Topic() {
 	}
@@ -26,10 +31,10 @@ public class Topic {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getDesc() {
-		return desc;
+	public String getDescription() {
+		return description;
 	}
-	public void setDesc(String desc) {
-		this.desc = desc;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 }

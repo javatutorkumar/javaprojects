@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+
+<title>COURSE API</title>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+	$(document).ready(function(){
+		$("#bottomSection, #addTopicSection").hide();
+		
+		$('#topicNameSearch, #allTopicsSearch').click(function(){
+			$("#bottomSection, #addTopicSection").hide();
+			
+			$.ajax({
+		        type : "GET",
+		        url : "/topics/"+$('#topicNameText').val(),
+		        timeout : 100000,
+		        dataType: "html",
+		        success : function(data) {
+		            $("#bottomSection").html(data).show();
+		        },
+		        error : function(e) {
+		            alert("ERROR: ", e);
+		        },
+		        done : function(e) {
+		            //console.log("DONE");
+		        }
+		    });
+		});
+		
+		$('#addTopic').click(function(){
+			$('#addTopicSection').show();
+		});
+	});
+</script>
+
+</head>
+<body>
+   <h1>Search for Topics</h1>
+   Enter Topic Name: <input type="text" name="topicName" id="topicNameText"/>
+   <input type="button" value="Search" id="topicNameSearch"/>
+   <input type="button" value="All Topics" id="allTopicsSearch"/>
+   <input type="button" value="Add Topic" id="addTopic"/>
+   <br/>
+   <hr/>
+   <br/>
+   <div id="bottomSection"></div>
+   <div id="addTopicSection">
+	   <div th:replace="addTopic :: addTopicFrag"></div>
+   </div>
+   <br/><br/><br/>
+   <div th:replace="layout :: #footerId"></div>
+</body>
+</html>

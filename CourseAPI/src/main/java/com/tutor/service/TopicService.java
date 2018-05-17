@@ -32,21 +32,14 @@ public class TopicService {
 	}
 
 	public void addTopic(Topic topic) {
-		//topics.add(topic);
 		repository.save(topic);
 	}
 
 	public void updateTopic(Topic topic) { 
-		int i = 0;
-		for(Topic tp : topics) {
-			if(tp.getId().equals(topic.getId())) {
-				topics.set(i, topic);
-			}
-			i++;
-		}
+		repository.save(topic);
 	}
 
 	public void deleteTopicByName(String name) {
-		topics.removeIf(a -> a.getName().equalsIgnoreCase(name));
+		repository.deleteByName(name);
 	}
 }
